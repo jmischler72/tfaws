@@ -2,11 +2,6 @@ source $HOME/.zshrc_priv
 
 # - Rebind terraform aliases to use TFPATH
 alias terraform='echo tf_path: $TFPATH && terraform -chdir=$TFPATH $@'
-alias tfi='echo tf_path: $TFPATH && terraform -chdir=$TFPATH init '
-alias tfp='echo tf_path: $TFPATH && terraform -chdir=$TFPATH plan '
-alias tfa='echo tf_path: $TFPATH && terraform -chdir=$TFPATH apply '
-alias tfd='echo tf_path: $TFPATH && terraform -chdir=$TFPATH destroy '
-alias tfs='echo tf_path: $TFPATH && terraform -chdir=$TFPATH show '
 
 change_context() {
   local profile="$1"
