@@ -1,12 +1,28 @@
 source $HOME/.zshrc_priv
 
 # - Rebind terraform aliases to use TFPATH
-alias terraform='echo tf_path: $TFPATH && terraform -chdir=$TFPATH $@'
+alias terraform='_tf_alias() { 
+  if [[ -n "$TFPATH" ]]; then 
+    echo tf_path: $TFPATH && command terraform -chdir="$TFPATH" "$@"
+  else 
+    command terraform "$@"
+  fi
+}; _tf_alias'
 
 change_context() {
   local profile="$1"
   asp "$profile"
-  awsid
+  if [[ -z "$profile" ]]; then
+    return 1
+  fi
+  # Extract sso_session value from aws/config for the given profile
+  session_name=$(awk -v profile="$profile" '
+    $0 ~ "\\[profile "profile"\\]" {found=1; next}
+    /^\[profile / {found=0}
+    found && $1 == "sso_session" {print $3; exit}
+  ' ~/.aws/config)
+
+  awsid "$session_name"
   profile_no_dash="${profile//-/}"
   export TFPATH="$(eval echo \$TFPATH_${profile_no_dash})"
 }
@@ -21,8 +37,8 @@ fi
 # - Function to login to AWS SSO if not authenticated
 awsid() {
   if ! aws sts get-caller-identity &>/dev/null; then
-  echo "Not authenticated. Running SSO login..."
-  aws sso login --sso-session $MY_SSO 
+  echo "Not authenticated. Running SSO login for session: $1"
+  aws sso login --sso-session $1 
   fi
 }
 
@@ -57,5 +73,8 @@ select_context() {
   done
 }
 
-alias chctx="select_context"
+chctx() {
+  change_context "$@"
+}
+alias lsctx='select_context'
 alias shctx='echo aws_profile: $AWS_PROFILE && echo tf_path: $TFPATH'
