@@ -15,10 +15,10 @@ a `.awsprofile` file.
 ## Installation
 
 1. Clone or copy the plugin into your Oh My Zsh plugins directory.
-2. Add `chctx` to the `plugins` array in your `.zshrc`:
+2. Add `aws` and `chctx` to the `plugins` array in your `.zshrc`:
 
 ```zsh
-plugins=(... chctx)
+plugins=(... aws chctx)
 ```
 
 3. Reload your shell:

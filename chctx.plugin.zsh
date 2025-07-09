@@ -35,7 +35,6 @@ cd() {
   builtin cd "$@" && switchAwsProfile
 }
 
-
 # - Function to select a profile
 select_context() {
   # Get profiles from aws_profiles command
