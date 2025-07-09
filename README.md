@@ -1,6 +1,6 @@
 # chctx
 
-**chctx** is an [Oh My Zsh](https://ohmyz.sh/) plugin that streamlines context switching between AWS and
+**chctx** is an [Oh My Zsh](https://ohmyz.sh/) plugin that simplifies context switching between AWS and
 Terraform. It offers automatic AWS SSO login, automatic profile switching using a `.awsprofile` file, and
 links of terraform workspace/folders to profiles
 
