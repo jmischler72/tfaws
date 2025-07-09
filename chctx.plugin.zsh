@@ -78,3 +78,5 @@ chctx() {
 }
 alias lsctx='select_context'
 alias shctx='echo aws_profile: $AWS_PROFILE && echo tf_path: $TFPATH'
+
+alias asp='change_context'
