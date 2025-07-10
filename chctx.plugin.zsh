@@ -2,7 +2,9 @@ source $HOME/.zshrc_priv
 
 # - Rebind terraform aliases to use TFPATH
 alias terraform='_tf_alias() { 
-  if [[ -n "$TFPATH" ]]; then 
+  if [[ "$1" == "fmt" || "$1" == "format" ]]; then
+    command terraform "$@"
+  elif [[ -n "$TFPATH" ]]; then 
     echo tf_path: $TFPATH && command terraform -chdir="$TFPATH" "$@"
   else 
     command terraform "$@"
