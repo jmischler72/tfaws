@@ -56,23 +56,31 @@ cd() {
 # - Function to select a profile
 select_context() {
   # Get profiles from aws_profiles command
-  profiles=($(aws_profiles))
-  profiles+=("Quit")
-
-  PS3="Select AWS profile: "
-  select opt in "${profiles[@]}"; do
-    if [[ $REPLY -ge 1 && $REPLY -le ${#profiles[@]} ]]; then
-      if [[ $REPLY -eq ${#profiles[@]} ]]; then
-        break
-      else
-        echo "${profiles[$REPLY]}"
-        change_context "${profiles[$REPLY]}"
-        break
-      fi
-    else
-      echo "Invalid option"
+  if command -v fzf >/dev/null 2>&1; then
+    profile=$(aws_profiles | fzf --prompt="Select AWS profile: ")
+    if [[ -n "$profile" ]]; then
+      echo "$profile"
+      change_context "$profile"
     fi
-  done
+  else
+    profiles=($(aws_profiles))
+    profiles+=("Quit")
+
+    PS3="Select AWS profile: "
+    select opt in "${profiles[@]}"; do
+      if [[ $REPLY -ge 1 && $REPLY -le ${#profiles[@]} ]]; then
+        if [[ $REPLY -eq ${#profiles[@]} ]]; then
+          break
+        else
+          echo "${profiles[$REPLY]}"
+          change_context "${profiles[$REPLY]}"
+          break
+        fi
+      else
+        echo "Invalid option"
+      fi
+    done
+  fi
 }
 
 chctx() {
