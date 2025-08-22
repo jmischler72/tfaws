@@ -1,6 +1,6 @@
-# chctx
+# tfaws
 
-**chctx** is an [Oh My Zsh](https://ohmyz.sh/) plugin that simplifies context switching between AWS and
+**tfaws** is an [Oh My Zsh](https://ohmyz.sh/) plugin that simplifies context switching between AWS and
 Terraform. It offers automatic AWS SSO login, automatic profile switching using a `.awsprofile` file, and
 links of terraform workspace/folders to profiles
 
@@ -16,10 +16,10 @@ links of terraform workspace/folders to profiles
 ## Installation
 
 1. Clone or copy the plugin into your Oh My Zsh plugins directory.
-2. Add `aws` and `chctx` to the `plugins` array in your `.zshrc`:
+2. Add `aws` and `tfaws` to the `plugins` array in your `.zshrc`:
 
 ```zsh
-plugins=(... aws chctx)
+plugins=(... aws tfaws)
 ```
 
 3. Reload your shell:
@@ -32,13 +32,13 @@ source ~/.zshrc
 
 ### Commands
 
-- `chctx`: Switch to an AWS profile with autologin to sso and link to terraform path (if exists).
-- `lsctx`: Opens a menu to select an AWS profile/Terraform path (if exists).
-- `shctx`: Displays the current AWS profile and Terraform directory.
+- `tfaws`: Switch to an AWS profile with autologin to sso and link to terraform path (if exists).
+- `tfaws ls`: Opens a menu to select an AWS profile/Terraform path (if exists).
+- `tfaws sh`: Displays the current AWS profile and Terraform directory.
 
 ### Configuration
 
-Edit your `~/.zshrc_priv` (or similar private config file):
+Export environment variables by modifying your .zshrc file or source a file exporting them
 
 ```zsh
 # Set Terraform paths for specific AWS profiles
@@ -51,7 +51,7 @@ export TFPATH_profile2="$HOME/Documents/terraform-project/profile2"
 
 - **Auto Profile Switching:**  
   Place a `.awsprofile` file containing the profile name in any directory. When you `cd` or open a terminal
-  into that directory, `chctx` will automatically switch to the specified profile.
+  into that directory, `tfaws` will automatically switch to the specified profile.
 
   ```sh
   echo "profile1" > ~/Documents/terraform-project/profile1/.awsprofile
