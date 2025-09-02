@@ -9,7 +9,7 @@ links of terraform workspace/folders to profiles
 - **Profile Selector:** Quickly switch AWS profiles via an interactive menu or command argument.
 - **Automatic AWS SSO login:** Automatically login to SSO based on the profile selected. (work only if
   configured with ~/.aws/config)
-- **Terraform Context:** Automatically set Terraform working directories per AWS profile.
+- **Terraform Context:** Automatically set Terraform working directories based on a AWS profile.
 - **Auto Profile Switching:** Instantly switch profiles when entering directories containing a `.awsprofile`
   file.
 
