@@ -35,10 +35,31 @@ source ~/.zshrc
 - `tfaws`: Switch to an AWS profile with autologin to sso and link to terraform path (if exists).
 - `tfaws ls`: Opens a menu to select an AWS profile/Terraform path (if exists).
 - `tfaws sh`: Displays the current AWS profile and Terraform directory.
+- `tfaws config`: Creates or opens the `~/.tfaws` configuration file for editing TFPATH mappings.
 
 ### Configuration
 
-Export environment variables by modifying your .zshrc file or source a file exporting them
+#### Method 1: Using the config command (Recommended)
+
+Run `tfaws config` to create and edit a `~/.tfaws` configuration file:
+
+```bash
+tfaws config
+```
+
+This will create a template file at `~/.tfaws` with examples:
+
+```bash
+# tfaws configuration file
+# Define TFPATH mappings for AWS profiles
+export TFPATH_dev="$HOME/terraform/dev"
+export TFPATH_prod="$HOME/terraform/prod" 
+export TFPATH_staging="$HOME/terraform/staging"
+```
+
+#### Method 2: Environment variables
+
+Alternatively, export environment variables by modifying your .zshrc file:
 
 ```zsh
 # Set Terraform paths for specific AWS profiles

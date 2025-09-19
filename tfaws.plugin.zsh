@@ -77,12 +77,39 @@ if [[ $- == *i* ]]; then
   switchAwsProfile
 fi
 
+# - Function to configure TFPATH mappings in ~/.tfaws file
+config_tfaws() {
+  local config_file="$HOME/.tfaws"
+  
+  # Create template file if it doesn't exist
+  if [[ ! -f "$config_file" ]]; then
+    echo "Creating template .tfaws file at $config_file"
+    cat > "$config_file" << 'EOF'
+# tfaws configuration file
+# Define TFPATH mappings for AWS profiles
+# Format: export TFPATH_<profile_without_dashes>="path/to/terraform/directory"
+# 
+# Examples:
+# export TFPATH_dev="$HOME/terraform/dev"
+# export TFPATH_prod="$HOME/terraform/prod"
+# export TFPATH_staging="$HOME/terraform/staging"
+#
+# Note: Profile names with dashes are converted (e.g., dev-env becomes TFPATH_devenv)
+
+EOF
+  fi
+  
+  # Open the config file in the default editor
+  ${=VISUAL:-${EDITOR:-vi}} "$config_file"
+}
 
 tfaws() {
   if [[ $1 == "ls" ]]; then
     select_context
   elif [[ $1 == "sh" ]]; then
     echo aws_profile: $AWS_PROFILE && echo tf_path: $TFPATH
+  elif [[ $1 == "config" ]]; then
+    config_tfaws
   else
     change_context "$1"
   fi
