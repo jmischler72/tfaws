@@ -8,7 +8,6 @@ A Zsh plugin for Oh My Zsh that simplifies switching between AWS profiles and ma
 - 📁 Automatically set Terraform working directory (`TFPATH`) based on profile
 - 🎯 Interactive profile selection with fzf support
 - ⚙️ Configurable profile-to-path mappings
-- 🔗 Enhanced Terraform command with automatic directory switching
 
 ## Installation
 
@@ -79,7 +78,6 @@ tf_paths:
   dev: "$HOME/terraform/dev"
   staging: "$HOME/terraform/staging"
   prod: "$HOME/terraform/production"
-  devops-shared: "/shared/terraform/devops"
 ```
 
 Environment variables like `$HOME` are automatically expanded.
